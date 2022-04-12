@@ -24,8 +24,6 @@ class CreateRoomsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('room_list_id')->unsigned();
             $table->foreign('room_list_id')->references('id')->on('room_lists')->onDelete('cascade');
-            $table->integer('time_id')->unsigned();
-            $table->foreign('time_id')->references('id')->on('times')->onDelete('cascade');
             $table->timestamps();
         });
     }

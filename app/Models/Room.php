@@ -21,4 +21,10 @@ class Room extends Model
         'time_id',
     ];
     protected $primaryKey = 'id';
+
+    public function room_list()
+    {
+        return $this->belongsTo(Room_list::class, 'room_list_id', 'id');
+    }
+    
 }

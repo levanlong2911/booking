@@ -11,7 +11,7 @@ class Time extends Model
 
     public $table = 'times';
     protected $fillable = [
-        'name'
+        'time'
     ];
     protected $primaryKey = 'id';
 }
