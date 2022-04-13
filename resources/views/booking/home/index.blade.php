@@ -17,13 +17,13 @@
           <form action="" method="get">
             <div class="col-sm-4 ">
               <div class="col-sm-8 search">
+                <input type="submit" class="search" name="submit" value="Search">
                 <div class="form-group">
                   <label for="date"></label>
-                  <input type="date" name="date" id="" class="form-control" placeholder="Mon,28 june 2022">
+                  <input type="date" name="date" id="day" class="form-control" placeholder="Mon,28 june 2022">
                 </div>
               </div>
             </div>
-            <input type="submit" name="submit" value="Search">
           </form>
           
           {{-- <div class="col-sm-4 ">
@@ -58,18 +58,10 @@
                 <a href="{{ $url_book }}"><img src="/home/img/screenshot_1.png" alt="" style="width: 100%"></a>
               </div>
               <div class="col-sm-4 gio">
-                
                 @foreach ($room_list->room as $room)
-                  {{-- {{ $room->date }} --}}
-                  {{-- @php
-                    $ngay = 2022-04-13;
-                  @endphp --}}
-                  {{-- @for ($i = 0; $i < count($room_list->room); $i++) --}}
                     @if($room['date'] == $date)
                       <div class="giocon">{{ $room->time_start}} - {{ $room->time_end }}</div>
                     @endif
-                  {{-- @endfor --}}
-                  
                 @endforeach
               </div>
             </div>

@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         $room_list = Room_list::find($id);
         $times = Time::all();
-        // dd($room_list);
+        // dd($times);
         if($request->isMethod('post'))
         {
             $position = Auth::user()->position;
