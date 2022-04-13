@@ -2,6 +2,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<base href="{{ asset('') }}">
 <link rel="stylesheet" href="./css/style.css">
 <!DOCTYPE html>
 <html>
@@ -23,27 +24,19 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-center form_container">
-
-					<form action="{{ route('login') }}" method="post">
-						@csrf
-						@if (Session::has('fail'))
-							<div class="alert alert-danger">
-								{{ Session::get('fail') }}
-							</div>
-						@endif
+					<form action="{{ route('post.admin.login') }}" method="post">
+                        @csrf
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							<input type="text" name="email" class="form-control input_user" value="" placeholder="Email">
-							<p class="help is-danger">{{ $errors->first('email') }}</p>
+							<input type="email" class="form-control input_user" value="" placeholder="email" name="email">
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<input type="password" name="password" class="form-control input_pass" value="" placeholder="password">
-							<p class="help is-danger">{{ $errors->first('password') }}</p>
+							<input type="password" class="form-control input_pass" value="" placeholder="password" name="password">
 						</div>
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
@@ -51,10 +44,9 @@
 								<label class="custom-control-label" for="customControlInline">Remember me</label>
 							</div>
 						</div>
-						<div class="d-flex justify-content-center mt-3 login_container">
-				 			{{-- <button type="button" name="button" class="btn login_btn">Login2</button> --}}
-							<input type="submit" name="submit" class="btn login_btn" value="Login">
-				   		</div>
+							<div class="d-flex justify-content-center mt-3 login_container">
+				 	<button type="submit" class="btn login_btn">Login</button>
+				   </div>
 					</form>
 				</div>
 
