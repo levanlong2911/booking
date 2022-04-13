@@ -11,10 +11,14 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $room_lists = Room_list::all();
-        return view('booking.home.index', compact('room_lists'));
+        // dd($request->date);
+        $date = $request->date;
+        $dem = count($room_lists);
+        // dd($dem);
+        return view('booking.home.index', compact('room_lists', 'date'));
     }
 
     public function book($id, Request $request)
@@ -30,6 +34,10 @@ class HomeController extends Controller
                 $room = new Room;
                 $room->fill($request->all());
                 $room['user_id'] = Auth::user()->id;
+                // $date = $request->date;
+                // $time = $room->time_start;
+                // dd($time);
+                // if()
                 if($room->save())
                 {
                     return redirect()->route('home.index');

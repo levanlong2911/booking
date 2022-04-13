@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="date" class="form-control" type="date" min="2022-04-07" required>
+                                    <input name="date" class="form-control" type="date" min="2022-04-12" required>
                                     <span class="form-label">date</span>
                                 </div>
                             </div>

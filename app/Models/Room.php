@@ -18,7 +18,6 @@ class Room extends Model
         'amount_of_people',
         'user_id',
         'room_list_id',
-        'time_id',
     ];
     protected $primaryKey = 'id';
 
@@ -26,5 +25,6 @@ class Room extends Model
     {
         return $this->belongsTo(Room_list::class, 'room_list_id', 'id');
     }
+    
     
 }
