@@ -3,6 +3,7 @@
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\LoginController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/**
+ * password vừa chữ vừa số
+ */
+
 Route::pattern('id', '[0-9]+');
 Route::pattern('slug', ('.*'));
 
