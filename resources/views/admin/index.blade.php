@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <base href="{{ asset('') }}">
-    <link rel="stylesheet" href="{{ asset('css/booking.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/admin.css') }}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -16,7 +16,7 @@
 <body>
     <div class="sidebar-container">
         <div class="sidebar-logo">
-            <img class="logo" src="{{ asset('img/logo.png') }}" alt="">
+            <img class="logo" src="{{ asset('admin/img/logo.png') }}" alt="">
         </div>
         <ul class="sidebar-navigation">
             <li class="header"></i>FACILITIES</li>
@@ -58,38 +58,31 @@
         <div class="row ml-5" id="mtr">
             <div>Meeting rooms</div>
         </div>
-        <br/>
-        <a href="{{ route('get.admin.add_user') }}"><button type="button" class="btn btn-secondary ml-5">Thêm</button></a>
         <table class="table ml-5 mt-5">
             <thead>
                 <tr>
                     <th scope="col">Number</th>
                     <th scope="col">Full Name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Position</th>
-                    <th scope="col">Department</th>
+                    <th scope="col">Edit</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($admin as $value)
                    <tr>
-                        <th scope="row">{{ $user['id'] }}</th>
-                        <td>{{ $user['name'] }}</td>
-                        <td>{{ $user['email'] }}</td>
-                        <td>{{ $user['gender'] }}</td>
-                        <td>{{ $user['phone'] }}</td>
-                        <td>{{ $user['position'] }}</td>
-                        <td>{{ $user['department'] }}</td>
+                        <th scope="row">{{ $value['id'] }}</th>
+                        <td>{{ $value['name'] }}</td>
+                        <td>{{ $value['email'] }}</td>
                         <td>
-                            <a href="{{ url('edit-user/' . $user['id']) }}"><button type="button" class="btn btn-success">Edit</button></a>
-                            <a href="{{ url('delete-user/' . $user['id']) }}" onclick="return confirm('Bạn muốn xoá user này?')"><button type="button" class="btn btn-danger">Delete</button></a>
+                            <a href="{{ url('edit-user/' . $value['id']) }}"><button type="button" class="btn btn-success">Edit</button></a>
+                            <a href="{{ url('delete-user/' . $value['id']) }}" onclick="return confirm('Bạn muốn xoá user này?')"><button type="button" class="btn btn-danger">Delete</button></a>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        <a href="{{ route('get.admin.add') }}"><button type="button" class="btn btn-secondary ml-5">them
+                user</button></a>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
