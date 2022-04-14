@@ -4,35 +4,38 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Http\Form\AdminCustomValidator;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginUserController extends Controller
 {
-    public function __construct(AdminCustomValidator $form)
+    
+    public function __construct( AdminCustomValidator $form)
     {
         $this->form = $form;
     }
-    public function login(Request $request)
+    public function loginUser(Request $request)
     {
-        if($request->isMethod('post'))
+        if($request->isMethod)
         {
-            $this->form->validate($request, 'ValidateFormLogin');
-            $login = $request->only('email', 'password');
-            // dd($login);
-            if (Auth::attempt($login)) {
-                return redirect()->route('home.index');
+
+            $this->$request->validate('ValidateFormLogin');
+            $loginUser = $request->only('email', 'password');
+            dd($loginUser);
+            if(Auth::attempt($loginUser, $request->remember))
+            {
+                return redirect()->route('home.book');
             } else {
                 return redirect()->route('login')->with('fail', 'Email hoặc password nhập sai');
             }
         }
-        return view('admin.login.login');
+        return view('booking.login.login');
     }
-
     public function logout(Request $request)
     {
         Auth::logout();
         return redirect()->route('login');
     }
+
+
 }

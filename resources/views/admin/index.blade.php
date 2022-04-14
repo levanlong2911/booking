@@ -5,7 +5,7 @@
         <div>Meeting rooms</div>
     </div>
     <br/>
-    <a href="{{ route('get.admin.add_user') }}"><button type="button" class="btn btn-secondary ml-5">Thêm</button></a>
+    <a href="{{ route('admin.index') }}"><button type="button" class="btn btn-secondary ml-5">Thêm</button></a>
     <table class="table ml-5 mt-5">
         <thead>
             <tr>

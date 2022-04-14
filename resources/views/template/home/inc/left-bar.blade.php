@@ -5,7 +5,7 @@
       </div>
       <div>
         <div class="hello">
-          Xin chào: <strong>{{ Auth::user()->name }}</strong>
+          {{-- Xin chào: <strong>{{ Auth::user()->name }}</strong> --}}
           <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" style="text-decoration: none; text-align: center; margin-left: 31%;">Logout</a>
           <form action="{{ route('logout') }}" method="post" class="d-none" id="logout-form">@csrf</form>
         </div>
