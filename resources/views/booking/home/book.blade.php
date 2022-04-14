@@ -1,5 +1,6 @@
-@include('template.home.inc.header')
-@include('template.home.inc.left-bar')
+@extends('template.home.master')
+
+@section('content')
 <link rel="stylesheet" href="home/chitiet.css">
 <link rel="stylesheet" href="home/home-page.css">
 <div id="booking" class="section">
@@ -109,4 +110,4 @@
         }
     }
 </script>
-@include('template.home.inc.footer')
+@endsection

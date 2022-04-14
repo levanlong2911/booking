@@ -25,7 +25,6 @@ class HomeController extends Controller
     {
         $room_list = Room_list::find($id);
         $times = Time::all();
-        // dd($times);
         if($request->isMethod('post'))
         {
             $position = Auth::user()->position;
@@ -34,10 +33,6 @@ class HomeController extends Controller
                 $room = new Room;
                 $room->fill($request->all());
                 $room['user_id'] = Auth::user()->id;
-                // $date = $request->date;
-                // $time = $room->time_start;
-                // dd($time);
-                // if()
                 if($room->save())
                 {
                     return redirect()->route('home.index');
