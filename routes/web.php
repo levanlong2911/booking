@@ -35,32 +35,30 @@ Route::get('/', function () {
 // });
 
 Route::prefix('/')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home.index');
-    Route::match(['get', 'post'], '/book/{id}', [HomeController::class, 'book'])->name('home.book')->middleware('auth');
+    Route::middleware(['auth:web'])->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('home.index');
+        Route::match(['get', 'post'], '/book/{id}', [HomeController::class, 'book'])->name('home.book');
+    });
+    
 });
 
 Route::match(['get', 'post'], '/login', [LoginUserController::class, 'loginUser'])->name('login');
-Route::post('/logout', [LoginUserController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginUserController::class, 'logoutUser'])->name('logout.user');
 
-// //Admin
-// Route::get('/booking_meeting_room', [AdminController::class, 'adminBooking']);
-// Route::get('/admin/user/index', [AdminController::class, 'adminIndex'])->name('get.admin.index');
-// Route::get('/admin/user/add', [AdminController::class, 'showAddUser'])->name('get.admin.add');
-// Route::post('/admin/user/add', [AdminController::class, 'addUser'])->name('post.admin.add');
-// Route::get('edit-user/{id}', [AdminController::class, 'showEditUser']);
-// Route::put('update-user/{id}', [AdminController::class, 'editUser']);
-// Route::get('delete-user/{id}', [AdminController::class, 'deleteUser']);
+
 //User
 Route::prefix('/admin')->group(function(){
-    Route::middleware(['auth'])->group(function(){
+    Route::middleware(['auth:web'])->group(function(){
         Route::match(['get', 'post'], '/login', [LoginController::class, 'login'])->name('admin.login');
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+        Route::get('/user/index', [UserController::class, 'userIndex'])->name('admin.index');
+        Route::get('/user/add', [UserController::class, 'showAddUser'])->name('get.admin.add');
+        Route::post('/user/add', [UserController::class, 'addUser'])->name('post.admin.add');
+        Route::get('edit-user/{id}', [UserController::class, 'showEditUser']);
+        Route::put('update-user/{id}', [UserController::class, 'editUser']);
+        Route::get('delete-user/{id}', [UserController::class, 'deleteUser']);
     });
 });
 
-Route::get('/admin/user/index', [UserController::class, 'userIndex'])->name('admin.index');
-Route::get('/admin/user/add', [UserController::class, 'showAddUser'])->name('get.admin.add');
-Route::post('/admin/user/add', [UserController::class, 'addUser'])->name('post.admin.add');
-Route::get('edit-user/{id}', [UserController::class, 'showEditUser']);
-Route::put('update-user/{id}', [UserController::class, 'editUser']);
-Route::get('delete-user/{id}', [UserController::class, 'deleteUser']);
+

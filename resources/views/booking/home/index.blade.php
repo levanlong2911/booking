@@ -17,7 +17,7 @@
       <div class="col-sm-2"></div>
       <form action="" method="get">
         <div class="col-sm-4 ">
-          <div class="col-sm-8 search">
+          <div class="col-sm-8">
             <input type="submit" class="search" name="submit" value="Search">
             <div class="form-group">
               <label for="date"></label>

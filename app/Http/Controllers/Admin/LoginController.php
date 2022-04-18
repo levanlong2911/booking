@@ -19,7 +19,7 @@ class LoginController extends Controller
             {
                 return redirect()->route('admin.index');
             } else {
-                return redirect()->route('login')->with('fail', 'Email hoặc password nhập sai');
+                return redirect()->route('admin.login')->with('fail', __('message.error_email_pass'));
             }
         }
         return view('admin.login.login');
