@@ -8,31 +8,36 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginUserController extends Controller
 {
-    public function __construct(AdminCustomValidator $form)
+    
+    public function __construct( AdminCustomValidator $form)
     {
         $this->form = $form;
     }
-    public function login(Request $request)
+    public function loginUser(Request $request)
     {
+        
         if($request->isMethod('post'))
         {
             $this->form->validate($request, 'ValidateFormLogin');
-            $login = $request->only('email', 'password');
-            // dd($login);
-            if (Auth::attempt($login)) {
+            $loginUser = $request->only('email', 'password');
+            // dd($loginUser);
+            if(Auth::attempt($loginUser, $request->remember))
+            {
                 return redirect()->route('home.index');
             } else {
-                return redirect()->route('login')->with('fail', 'Email hoặc password nhập sai');
+                return redirect()->route('login')->with('fail', __('message.error_email_pass'));
             }
         }
-        return view('admin.login.login');
+        return view('booking.login.login');
     }
-
-    public function logout(Request $request)
+    
+    public function logoutUser(Request $request)
     {
         Auth::logout();
         return redirect()->route('login');
     }
+
+
 }

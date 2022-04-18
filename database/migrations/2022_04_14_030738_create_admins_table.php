@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateRoomListsTable extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class UpdateRoomListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('room_lists', function (Blueprint $table) {
-            $table->time('time');
+        Schema::create('admins', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('password');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +29,6 @@ class UpdateRoomListsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('admins');
     }
 }
