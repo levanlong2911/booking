@@ -37,10 +37,10 @@ class HomeController extends Controller
                 {
                     return redirect()->route('home.index');
                 } else {
-                    return redirect()->back()->with('fail', 'Đã có lổi khi đăng ký phòng họp');
+                    return redirect()->back()->with('fail', __('message.error_booking'));
                 }
             } else {
-                return redirect()->back()->with('fail', 'Bạn không có quyền đăng ký');
+                return redirect()->back()->with('fail', __('message.error.book'));
             }
             
         }

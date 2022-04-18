@@ -14,14 +14,15 @@ class LoginController extends Controller
     {
         if($request->isMethod('post'))
         {
-            $login = $request->only('email', 'password');
-            if (Auth::attempt($login)) {
+            $login = $request->only('email', 'password', 'remember');
+            if (Auth::guard('admin')->attempt($login, $request->remember))
+            {
                 return redirect()->route('admin.index');
             } else {
-                return redirect()->route('login')->with('fail', 'Email hoặc password nhập sai');
+                return redirect()->route('admin.login')->with('fail', __('message.error_email_pass'));
             }
         }
-        return view('admin.login');
+        return view('admin.login.login');
     }
 
     public function logout(Request $request)
