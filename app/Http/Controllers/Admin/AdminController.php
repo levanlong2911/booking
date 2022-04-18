@@ -29,7 +29,7 @@ class AdminController extends Controller
     {
         return view('admin.user.add');
     }
-    public function addUser(Request $request)
+    public function addAdmin(Request $request)
     {
         $user = Admin::where('email', $request->email)->first();
         if(!$user) {

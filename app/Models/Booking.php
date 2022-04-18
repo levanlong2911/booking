@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model
+class Booking extends Model
 {
     use HasFactory;
-    
+
     public $table = 'rooms';
     protected $fillable = [
         'title',
@@ -25,6 +25,6 @@ class Room extends Model
     {
         return $this->belongsTo(Room_list::class, 'room_list_id', 'id');
     }
-    
-    
+
+
 }

@@ -9,45 +9,58 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function showAddUser()
-    {
-        return view('admin.user.add_users');
-    }
     public function addUser(Request $request)
     {
-        $password = Hash::make('password');
-        $user = new User;
-        $user->fill($request->all())->save();
-        return redirect()->route('get.admin.index');
+        if ($request->isMethod('post')) {
+            $request->merge(['password' => Hash::make($request->input('password'))]);
+            $user = new User;
+            $user->fill($request->all())->save();
+            return redirect()->route('admin.index');
+        }
+        return view('admin.user.add');
     }
+
+    // public function editUser($id, Request $request)
+    // {
+    //     $users = User::find($id);
+    //     if($request->isMethod('post')){
+    //         $users = new User();
+    //         $users->fill($request->all());
+    //         if($users->save()){
+    //             return redirect()->route('admin.index');
+    //         } else {
+    //             return redirect()->back();
+    //         }
+    //     }
+    //     return view('admin.user.index', compact('users'));
+    // }
     public function showEditUser($id)
     {
         $users = User::find($id);
-        return view('admin.user.update_users', compact('users'));
+        return view('admin.user.update', compact('users'));
     }
     public function userIndex()
     {
         $users = User::all();
-        $data = compact('users');
-        return view('admin.index')->with($data);
+        return view('admin.user.index', compact('users'));
     }
-    public function EditUser(Request $request, $id)
+    public function updateUser(Request $request, $id)
     {
         $users = User::find($id);
         $users->name = $request->name;
         $users->email = $request->email;
-        $users->password = bcrypt($request->password);
         $users->gender = $request->gender;
         $users->phone = $request->phone;
         $users->position = $request->position;
         $users->department = $request->department;
         $users->update();
-        return redirect()->route('get.admin.index');
+
+        return redirect()->route('admin.index');
     }
     public function deleteUser($id)
     {
-        $admin = User::find($id);
-        $admin->delete();
-        return redirect()->route('get.admin.index');
+        $users = User::find($id);
+        $users->delete();
+        return redirect()->route('admin.index');
     }
 }
