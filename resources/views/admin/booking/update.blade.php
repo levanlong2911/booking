@@ -12,45 +12,35 @@
     <body>
         <div class="update-user">
             <h4>UPDATE</h4>
-            <form action="{{ route('updateUser', $users['id'])}}" method="post">
+            <form action="{{ route('booking.update', $users['id']) }}" method="post">
                 @csrf
-                <label class="form-label" for="name">Name</label>
-                <input type="text" id="name" class="form-control form-control-lg" value="{{ Null !== old('name') ? old('name') : $users->name }}" /><br>
+                <ul class="alert text-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <label class="form-label" for="name">Title</label>
+                <input type="text" id="title" class="form-control form-control-lg" name="title"
+                    value="{{ null !== old('title') ? old('title') : $users->title }}" /><br>
 
-                <label class="form-label" for="lastName">Email</label>
-                <input type="email" id="emailAddress" class="form-control form-control-lg"
-                    value="{{ Null !== old('email') ? old('email') : $users->email }}" /><br>
+                <label class="form-label" for="lastName">Date</label>
+                <input type="text" id="emailAddress" class="form-control form-control-lg" name="date"
+                    value="{{ null !== old('date') ? old('date') : $users->date }}" /><br>
 
-                <h6 class="mb-2 pb-1">Gender:</h6>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender" value="Female"
-                        checked />
-                    <label class="form-check-label" for="femaleGender">Female</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender" value="Male" />
-                    <label class="form-check-label" for="maleGender">Male</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender" value="Other" />
-                    <label class="form-check-label" for="otherGender">Other</label>
-                </div>
+                <label class="form-label" for="name">Time start</label>
+                <input type="text" id="time_start" class="form-control form-control-lg" name="time_start"
+                    value="{{ null !== old('time_start') ? old('time_start') : $users->time_start }}" /><br>
                 <br>
                 <br>
 
-                <label class="form-label" for="phoneNumber">Phone Number</label>
-                <input type="tel" id="phoneNumber" class="form-control form-control-lg"
-                    value="{{ Null !== old('phone') ? old('phone') : $users->phone }}" /><br>
+                <label class="form-label" for="phoneNumber">Time end</label>
+                <input type="text" id="phoneNumber" class="form-control form-control-lg" name="time_end"
+                    value="{{ null !== old('time_end') ? old('time_end') : $users->time_end }}" /><br>
 
-                <label class="form-label" for="position">Position</label>
-                <input type="text" id="position" class="form-control form-control-lg"
-                    value="{{ Null !== old('position') ? old('position') : $users->position }}" /><br>
+                <label class="form-label" for="position">Amount Of People</label>
+                <input type="text" id="amount_of_people" class="form-control form-control-lg" name="amount_of_people"
+                    value="{{ null !== old('amount_of_people') ? old('amount_of_people') : $users->amount_of_people }}" /><br>
 
-                <label class="form-label" for="Department">Department</label>
-                <input type="text" id="Department" class="form-control form-control-lg"
-                    value="{{ Null !== old('department') ? old('department') : $users->department }}" /><br>
                 <div class="submit">
                     <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
                 </div>
@@ -58,4 +48,3 @@
         </div>
     </body>
 @endsection
-

@@ -5,7 +5,7 @@
             <div>Room List</div>
         </div>
         <br />
-        <a href="{{ route('addRoom') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
+        <a href="{{ route('room.show.add') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
         <table class="table ml-5 mt-5">
             <thead>
                 <tr>
@@ -19,9 +19,9 @@
                         <th scope="row">{{ $room['id'] }}</th>
                         <td>{{ $room['name'] }}</td>
                         <td>
-                            <a href="{{ route('editRoom', $room['id'])}}"><button type="button"
+                            <a href="{{ route('room.edit', $room['id'])}}"><button type="button"
                                     class="btn btn-success">Edit</button></a>
-                            <a href="{{ route('deleteRoom', $room['id'])}}"
+                            <a href="{{ route('room.delete', $room['id'])}}"
                                 onclick="return confirm('Bạn muốn xoá Room này?')"><button type="button"
                                     class="btn btn-danger">Delete</button></a>
                         </td>

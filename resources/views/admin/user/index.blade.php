@@ -1,11 +1,16 @@
 @extends('template.admin.master')
 @section('main-content')
+@if (Session::has('message'))
+<div class="alet alert-danger">
+    {{ Session::get('message') }}
+</div>
+@endif
     <div class="content-container">
         <div class="row ml-5" id="mtr">
             <div>User List</div>
         </div>
         <br />
-        <a href="{{ route('addUser') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
+        <a href="{{ route('user.show.add') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
         <table class="table ml-5 mt-5">
             <thead>
                 <tr>
@@ -29,9 +34,9 @@
                         <td>{{ $user['position'] }}</td>
                         <td>{{ $user['department'] }}</td>
                         <td>
-                            <a href="{{ route('editUser', $user['id'])}}"><button type="button"
+                            <a href="{{ route('user.edit', $user['id']) }}"><button type="button"
                                     class="btn btn-success">Edit</button></a>
-                            <a href="{{ route('deleteUser', $user['id'])}}"
+                            <a href="{{ route('user.delete', $user['id']) }}"
                                 onclick="return confirm('Bạn muốn xoá user này?')"><button type="button"
                                     class="btn btn-danger">Delete</button></a>
                         </td>

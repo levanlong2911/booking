@@ -5,7 +5,7 @@
             <div>Booking List</div>
         </div>
         <br />
-        <a href="{{ route('addBooking') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
+        <a href="{{ route('booking.show.add') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
         <table class="table ml-5 mt-5">
             <thead>
                 <tr>
@@ -27,9 +27,9 @@
                         <td>{{ $booking['time_end'] }}</td>
                         <td>{{ $booking['amount_of_people'] }}</td>
                         <td>
-                            <a href="{{ route('editBooking', $booking['id'])}}"><button type="button"
+                            <a href="{{ route('booking.edit', $booking['id'])}}"><button type="button"
                                     class="btn btn-success">Edit</button></a>
-                            <a href="{{ route('deleteBooking', $booking['id'])}}"
+                            <a href="{{ route('booking.delete', $booking['id'])}}"
                                 onclick="return confirm('Bạn muốn xoá Room này?')"><button type="button"
                                     class="btn btn-danger">Delete</button></a>
                         </td>

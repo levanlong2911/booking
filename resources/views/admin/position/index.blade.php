@@ -5,7 +5,7 @@
             <div>Position List</div>
         </div>
         <br />
-        <a href="{{ route('addPosition') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
+        <a href="{{ route('position.show.add') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
         <table class="table ml-5 mt-5">
             <thead>
                 <tr>
@@ -19,9 +19,9 @@
                         <th scope="row">{{ $position['id'] }}</th>
                         <td>{{ $position['name'] }}</td>
                         <td>
-                            <a href="{{ route('editPosition', $position['id'])}}"><button type="button"
+                            <a href="{{ route('position.edit', $position['id'])}}"><button type="button"
                                     class="btn btn-success">Edit</button></a>
-                            <a href="{{ route('deletePosition', $position['id'])}}"
+                            <a href="{{ route('position.delete', $position['id'])}}"
                                 onclick="return confirm('Bạn muốn xoá Position này?')"><button type="button"
                                     class="btn btn-danger">Delete</button></a>
                         </td>
