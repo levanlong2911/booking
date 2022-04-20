@@ -5,33 +5,34 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Http\Requests\DepartmentRequest;
 
 class DepartmentController extends Controller
 {
-    public function addDepartment(Request $request)
+    public function showAddDepartment()
     {
-        if ($request->isMethod('post')) {
-            $departments = new Department;
-            $departments->fill($request->all())->save();
-            return redirect()->route('department.index');
-        }
         return view('admin.department.add');
     }
-    public function showEditDepartment($id)
+    public function addDepartment(DepartmentRequest $request)
     {
-        $departments = Department::find($id);
-        return view('admin.department.update', compact('departments'));
+        $departments = new Department;
+        $departments->fill($request->all())->save();
+        return redirect()->route('department.index');
     }
     public function departmentIndex()
     {
         $departments = Department::all();
         return view('admin.department.index', compact('departments'));
     }
-    public function updateDepartment(Request $request, $id)
+    public function showEditDepartment($id)
     {
         $departments = Department::find($id);
-        $departments->name = $request->name;
-        $departments->update();
+        return view('admin.department.update', compact('departments'));
+    }
+    public function updateDepartment(DepartmentRequest $request, $id)
+    {
+        $departments = Department::find($id);
+        $departments->fill($request->all())->update();
         return redirect()->route('department.index');
     }
     public function deleteDepartment($id)

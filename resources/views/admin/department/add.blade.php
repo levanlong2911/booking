@@ -4,8 +4,13 @@
     <body>
         <div class="formAdd">
             <h3>ADD DEPARTMENT</h3>
-            <form action="{{ route('addDepartment') }}" method="post">
+            <form action="{{ route('department.add') }}" method="post">
                 @csrf
+                <ul class="alert text-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
                 <label class="form-label" for="name">Name</label>
                 <input type="text" name="name" id="name" class="form-control form-control-lg" /><br>
                 <div class="submit">

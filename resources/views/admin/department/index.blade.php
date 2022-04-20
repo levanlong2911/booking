@@ -5,7 +5,7 @@
             <div>Department List</div>
         </div>
         <br />
-        <a href="{{ route('addDepartment') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
+        <a href="{{ route('department.show.add') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
         <table class="table ml-5 mt-5">
             <thead>
                 <tr>
@@ -19,9 +19,9 @@
                         <th scope="row">{{ $department['id'] }}</th>
                         <td>{{ $department['name'] }}</td>
                         <td>
-                            <a href="{{ route('editDepartment', $department['id'])}}"><button type="button"
+                            <a href="{{ route('department.edit', $department['id'])}}"><button type="button"
                                     class="btn btn-success">Edit</button></a>
-                            <a href="{{ route('deleteDepartment', $department['id'])}}"
+                            <a href="{{ route('department.delete', $department['id'])}}"
                                 onclick="return confirm('Bạn muốn xoá Department này?')"><button type="button"
                                     class="btn btn-danger">Delete</button></a>
                         </td>

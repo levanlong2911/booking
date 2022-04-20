@@ -4,34 +4,35 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Room_List;
+use App\Http\Requests\RoomRequest;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    public function addRoom(Request $request)
+    public function showAddRoom()
     {
-        if ($request->isMethod('post')) {
-            $rooms = new Room_List;
-            $rooms->fill($request->all())->save();
-            return redirect()->route('room.index');
-        }
         return view('admin.room.add');
     }
-    public function showEditRoom($id)
+    public function addRoom(RoomRequest $request)
     {
-        $rooms = Room_List::find($id);
-        return view('admin.room.update', compact('rooms'));
+        $rooms = new Room_List;
+        $rooms->fill($request->all())->save();
+        return redirect()->route('room.index');
     }
     public function roomIndex()
     {
         $rooms = Room_List::all();
         return view('admin.room.index', compact('rooms'));
     }
-    public function updateRoom(Request $request, $id)
+    public function showEditRoom($id)
     {
         $rooms = Room_List::find($id);
-        $rooms->name = $request->name;
-        $rooms->update();
+        return view('admin.room.update', compact('rooms'));
+    }
+    public function updateRoom(RoomRequest $request, $id)
+    {
+        $rooms = Room_List::find($id);
+        $rooms->fill($request->all())->update();
         return redirect()->route('room.index');
     }
     public function deleteRoom($id)

@@ -42,7 +42,7 @@ class HomeController extends Controller
             } else {
                 return redirect()->back()->with('fail', __('message.error.book'));
             }
-            
+
         }
         return view('booking.home.book', compact('room_list', 'times'));
     }

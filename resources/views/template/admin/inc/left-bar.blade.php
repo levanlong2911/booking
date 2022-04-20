@@ -5,7 +5,7 @@
   <ul class="sidebar-navigation">
       <li class="header"></i>COMMUNITY</li>
       <li>
-          <a href="{{ route('admin.index') }}">
+          <a href="{{ route('user.index') }}">
               <i class="fa fa-tachometer" aria-hidden="true"></i> User List
           </a>
       </li>
