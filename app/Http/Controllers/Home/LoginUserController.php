@@ -22,7 +22,6 @@ class LoginUserController extends Controller
         {
             $this->form->validate($request, 'ValidateFormLogin');
             $loginUser = $request->only('email', 'password');
-            // dd($loginUser);
             if(Auth::attempt($loginUser, $request->remember))
             {
                 return redirect()->route('home.index');

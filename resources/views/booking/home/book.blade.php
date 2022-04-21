@@ -16,7 +16,7 @@
                             {{ Session::get('fail') }}
                         </div>
                     @endif
-                    <form action="{{ route('home.book', $room_list->id) }}" method="POST">
+                    <form action="{{ route('home.book', $room_list->id) }}" method="POST" autocomplete="off">
                         @csrf
                         
                         <!-- <h4 style="color:white;">Create booking</h4> -->
@@ -24,12 +24,14 @@
                             <!-- <label for="title" style="color: white;">Title</label> -->
                             <input class="form-control" type="text" name="title" placeholder="Rent a room to..." required>
                         </div>
+                        {{-- <p class="help is-danger" style="color:red">{{ $errors->frist('title') }}</p> --}}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input name="date" class="form-control" type="date" min="2022-04-12" required>
                                     <span class="form-label">date</span>
                                 </div>
+                                {{-- <p class="help is-danger" style="color:red">{{ $errors->frist('date') }}</p> --}}
                             </div>
                             <!-- <div class="col-md-6">
                                 <div class="form-group">
@@ -53,6 +55,7 @@
                                      <span class="select-arrow"></span>
                                     <span class="form-label">Amount of people</span>
                                 </div>
+                                {{-- <p class="help is-danger" style="color:red">{{ $errors->frist('amount_of_people') }}</p> --}}
                             </div>
                             <input type="hidden" name="room_list_id" value="{{ $room_list->id }}">
                             <div class="col-md-4">
@@ -66,6 +69,7 @@
                                     <span class="select-arrow"></span>
                                     <span class="form-label">Start</span>
                                 </div>
+                                {{-- <p class="help is-danger" style="color:red">{{ $errors->frist('time_start') }}</p> --}}
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -78,6 +82,7 @@
                                     <span class="select-arrow"></span>
                                     <span class="form-label">End</span>
                                 </div>
+                                {{-- <p class="help is-danger" style="color:red">{{ $errors->frist('time_end') }}</p> --}}
                             </div>
                         </div>
                         

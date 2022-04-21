@@ -25,7 +25,7 @@
 				</div>
 				<div class="d-flex justify-content-center form_container">
 
-					<form action="{{ route('admin.login') }}" method="post">
+					<form action="{{ route('admin.login') }}" method="post" autocomplete="off">
 						@csrf
 						@if (Session::has('fail'))
 							<div class="alert alert-danger">
@@ -37,15 +37,17 @@
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
 							<input type="text" name="email" class="form-control input_user" value="{{ old('email') }}" placeholder="Email">
-							<p class="help is-danger">{{ $errors->first('email') }}</p>
+							
 						</div>
+						<p class="help is-danger" style="color:red">{{ $errors->first('email') }}</p>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
 							<input type="password" name="password" class="form-control input_pass" value="{{ old('password') }}" placeholder="password">
-							<p class="help is-danger">{{ $errors->first('password') }}</p>
+							
 						</div>
+						<p class="help is-danger" style="color:red">{{ $errors->first('password') }}</p>
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
 								<input type="checkbox" class="custom-control-input" name="remember" id="customControlInline">
