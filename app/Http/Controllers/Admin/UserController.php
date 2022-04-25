@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserController extends Controller
 {
@@ -16,15 +17,25 @@ class UserController extends Controller
     }
     public function addUser(UserRequest $request)
     {
-            $request->merge(['password' => Hash::make($request->input('password'))]);
-            $user = new User;
-            $user->fill($request->all())->save();
-            return redirect()->route('user.index')->with('message', 'Thêm người dùng thành công');
+        $request->merge(['password' => Hash::make($request->input('password'))]);
+        $user = new User;
+        $user->fill($request->all())->save();
+        return redirect()->route('user.index')->with('message', 'Thêm người dùng thành công');
     }
-    public function userIndex()
+    public function userIndex(Request $request)
     {
-        $users = User::all();
-        return view('admin.user.index', compact('users'));
+        $search = $request['search'] ?? "";
+        if ($search != "") {
+            $users = User::where('name', 'LIKE', "%$search%")
+                ->orWhere('email', 'LIKE', "$search")
+                ->orWhere('gender', 'LIKE', "$search")
+                ->orWhere('position', 'LIKE', "%$search%")
+                ->orWhere('department', 'LIKE', "%$search%")
+                ->get();
+        } else {
+            $users = User::paginate(2);
+        }
+        return view('admin.user.index',compact('users', 'search'));
     }
     public function showEditUser($id)
     {
@@ -42,6 +53,6 @@ class UserController extends Controller
     {
         $users = User::find($id);
         $users->delete();
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('delete', 'Xoá người dùng thành công');
     }
 }

@@ -17,12 +17,16 @@ class RoomController extends Controller
     {
         $rooms = new Room_List;
         $rooms->fill($request->all())->save();
-        return redirect()->route('room.index');
+        return redirect()->route('room.index')->with('message', 'Thêm phòng họp thành công');
     }
-    public function roomIndex()
+    public function roomIndex(Request $request)
     {
-        $rooms = Room_List::all();
-        return view('admin.room.index', compact('rooms'));
+        $search = $request['search'] ?? "";
+        if ($search != "") {
+            $rooms = Room_List::where('name', 'LIKE', "%$search%");
+        }
+        $rooms = Room_List::paginate(2);
+        return view('admin.room.index', compact('rooms','search'));
     }
     public function showEditRoom($id)
     {
@@ -33,12 +37,12 @@ class RoomController extends Controller
     {
         $rooms = Room_List::find($id);
         $rooms->fill($request->all())->update();
-        return redirect()->route('room.index');
+        return redirect()->route('room.index')->with('message', 'Cập nhật phòng họp thành công');
     }
     public function deleteRoom($id)
     {
         $rooms = Room_List::find($id);
         $rooms->delete();
-        return redirect()->route('room.index');
+        return redirect()->route('room.index')->with('delete', 'Xoá phòng họp thành công');
     }
 }

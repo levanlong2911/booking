@@ -17,7 +17,7 @@ class BookingController extends Controller
     {
         $bookings = new Room;
         $bookings->fill($request->all())->save();
-        return redirect()->route('booking.index');
+        return redirect()->route('booking.index')->with('message', 'Thêm phòng họp thành công');
     }
 
     // public function editBooking($id, Request $request)
@@ -41,19 +41,26 @@ class BookingController extends Controller
     }
     public function bookingIndex()
     {
-        $bookings = Room::all();
-        return view('admin.booking.index', compact('bookings'));
+        $search = $request['search'] ?? "";
+        if ($search != "") {
+            $bookings = Room::where('title', 'LIKE', "%$search%")
+                ->orWhere('date', 'LIKE', "$search")
+                ->get();
+        } else {
+            $bookings = Room::paginate(2);
+        }
+        return view('admin.booking.index',compact('bookings', 'search'));
     }
     public function updateBooking(BookingRequest $request, $id)
     {
         $bookings = Room::find($id);
         $bookings->fill($request->all())->update();
-        return redirect()->route('booking.index');
+        return redirect()->route('booking.index')->with('message', 'Cập nhật phòng họp thành công');
     }
     public function deleteBooking($id)
     {
         $bookings = Room::find($id);
         $bookings->delete();
-        return redirect()->route('booking.index');
+        return redirect()->route('booking.index')->with('delete', 'Xoá phòng họp thành công');
     }
 }
