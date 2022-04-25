@@ -16,6 +16,7 @@ class HomeController extends Controller
     {
         $this->form = $form;
     }
+    
     public function index(Request $request)
     {
         $room_lists = Room_list::all();

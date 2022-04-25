@@ -15,6 +15,7 @@ class LoginUserController extends Controller
     {
         $this->form = $form;
     }
+    
     public function loginUser(Request $request)
     {
         
