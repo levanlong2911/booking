@@ -26,19 +26,6 @@
           </div>
         </div>
       </form>
-      
-      {{-- <div class="col-sm-4 ">
-        <div class="col-sm-8 search">
-          <div class="form-group">
-            <label for="select"></label>
-            <select class="form-control" name="select" id="">
-              <option>8h</option>
-              <option>8h30</option>
-              <option>9h</option>
-            </select>
-          </div>
-        </div>
-      </div> --}}
       <div class="col-sm-2"></div>
   </div>
   @foreach ($room_lists as $room_list)
