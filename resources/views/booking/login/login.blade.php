@@ -24,7 +24,7 @@
 				</div>
 				<div class="d-flex justify-content-center form_container">
 
-					<form action="{{ route('login') }}" method="post">
+					<form action="{{ route('login') }}" method="post" autocomplete="off">
 						@csrf
 						@if (Session::has('fail'))
 							<div class="alert alert-danger">

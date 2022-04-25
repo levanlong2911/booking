@@ -69,4 +69,10 @@ class AdminController extends Controller
         $admin->delete();
         return redirect()->route('get.admin.index');
     }
+
+    public function index()
+    {
+        $admins = Admin::all();
+        return view('admin.admin.index', compact('admins'));
+    }
 }
