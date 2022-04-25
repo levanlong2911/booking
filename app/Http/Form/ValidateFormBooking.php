@@ -23,8 +23,8 @@ class ValidateFormBooking
             'time_end' => 'required',
         ],[
             'title.required' => 'Vui lòng nhập nội dung',
-            'title.min' => 'Vui lòng nhập họ và tên ít nhất 8 ký tự',
-            'title.max' => 'Vui lòng nhập họ và tên nhiều nhất 32 ký tự',
+            'title.min' => 'Vui lòng nhập nội dung ít nhất 8 ký tự',
+            'title.max' => 'Vui lòng nhập nội dung nhiều nhất 32 ký tự',
             'date.required' => 'Vui lòng chọn ngày',
             'amount_of_people.required' => 'Vui lòng chọn số người tham gia',
             'time_start.required' => 'Vui lòng chọn thời gian bắt đầu',
