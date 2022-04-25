@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
+use App\Http\Form\AdminCustomValidator;
 use App\Models\Room;
 use App\Models\Room_list;
 use App\Models\Time;
@@ -11,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+    public function __construct(AdminCustomValidator $form)
+    {
+        $this->form = $form;
+    }
     public function index(Request $request)
     {
         $room_lists = Room_list::all();
@@ -27,6 +32,7 @@ class HomeController extends Controller
         $times = Time::all();
         if($request->isMethod('post'))
         {
+            $this->form->validate($request, 'ValidateFormBooking');
             $position = Auth::user()->position;
             if($position == 'Trưởng phòng' || $position == 'Giám đốc' || $position == 'Thư ký')
             {
