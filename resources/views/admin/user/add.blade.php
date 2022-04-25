@@ -39,11 +39,27 @@
                 <label class="form-label" for="phoneNumber">Phone Number</label>
                 <input type="tel" name="phone" id="phoneNumber" class="form-control form-control-lg" /><br>
 
-                <label class="form-label" for="position">Position</label>
-                <input type="text" name="position" id="position" class="form-control form-control-lg" /><br>
-
-                <label class="form-label" for="Department">Department</label>
-                <input type="text" name="department" id="Department" class="form-control form-control-lg" /><br>
+                <label class="form-label" for="phoneNumber">Position</label>
+                <div>
+                    <select class="form-control selectpicker">
+                        <option>Giám đốc</option>
+                        <option>Trưởng phòng</option>
+                        <option>Nhân viên</option>
+                        <option>Thư ký</option>
+                    </select>
+                </div>
+                <br>
+                <br>
+                <label class="form-label" for="phoneNumber">Department</label>
+                <div>
+                    <select class="form-control selectpicker">
+                        <option>Kỹ thuật</option>
+                        <option>Nhân sự</option>
+                        <option>Kế toán</option>
+                        <option>Kinh doanh</option>
+                    </select>
+                </div>
+                <br>
 
                 <div class="submit">
                     <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
