@@ -33,90 +33,130 @@ Route::pattern('slug', ('.*'));
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::get('/login', function () {
-//     return view('login');
-// });
-// Route::get('/booking_meeting_room', function () {
-//     return view('booking_meeting_room');
-// });
 
-// Route::prefix('/')->group(function () {
-//     Route::get('/', [HomeController::class, 'index'])->name('home.index');
-//     Route::match(['get', 'post'], '/book/{id}', [HomeController::class, 'book'])->name('home.book');
-// });
-
-// Route::match(['get', 'post'], '/login', [LoginController::class, 'login'])->name('login');
-// Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-// Route::match(['get', 'post'], '/login', [LoginController::class, 'login'])->name('login');
 Route::prefix('/')->group(function () {
     Route::middleware(['auth:web'])->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home.index');
         Route::match(['get', 'post'], '/book/{id}', [HomeController::class, 'book'])->name('home.book');
     });
-});
 
-// Route::match(['get', 'post'], '/login', [LoginUserController::class, 'loginUser'])->name('login');
-Route::post('/logout', [LoginUserController::class, 'logoutUser'])->name('logout.user');
-Route::prefix('/admin')->group(function () {
-    //User
-    Route::prefix('/user')->group(function () {
-        Route::get('/', [UserController::class, 'userIndex'])->name('user.index');
-        Route::get('/add', [UserController::class, 'showAddUser'])->name('user.show.add');
-        Route::post('/add', [UserController::class, 'addUser'])->name('user.add');
-        Route::get('edit/{id}', [UserController::class, 'showEditUser'])->name('user.edit');
-        Route::post('update/{id}', [UserController::class, 'updateUser'])->name('user.update');
-        Route::get('delete/{id}', [UserController::class, 'deleteUser'])->name('user.delete');
-    });
-    //Department
-    Route::prefix('/department')->group(function () {
-        Route::get('/', [DepartmentController::class, 'departmentIndex'])->name('department.index');
-        Route::get('/add', [DepartmentController::class, 'showAddDepartment'])->name('department.show.add');
-        Route::post('/add', [DepartmentController::class, 'addDepartment'])->name('department.add');
-        Route::get('edit/{id}', [DepartmentController::class, 'showEditDepartment'])->name('department.edit');
-        Route::post('update/{id}', [DepartmentController::class, 'updateDepartment'])->name('department.update');
-        Route::get('delete/{id}', [DepartmentController::class, 'deleteDepartment'])->name('department.delete');
-    });
-    //Position
-    Route::prefix('/position')->group(function () {
-        Route::get('/', [PositionController::class, 'positionIndex'])->name('position.index');
-        Route::get('/add', [PositionController::class, 'showAddPosition'])->name('position.show.add');
-        Route::post('/add', [PositionController::class, 'addPosition'])->name('position.add');
-        Route::get('edit/{id}', [PositionController::class, 'showEditPosition'])->name('position.edit');
-        Route::post('update/{id}', [PositionController::class, 'updatePosition'])->name('position.update');
-        Route::get('delete/{id}', [PositionController::class, 'deletePosition'])->name('position.delete');
-    });
-    //Room
-    Route::prefix('/room')->group(function () {
-        Route::get('/', [RoomController::class, 'roomIndex'])->name('room.index');
-        Route::get('/add', [RoomController::class, 'showAddRoom'])->name('room.show.add');
-        Route::post('/add', [RoomController::class, 'addRoom'])->name('room.add');
-        Route::get('edit/{id}', [RoomController::class, 'showEditRoom'])->name('room.edit');
-        Route::post('update/{id}', [RoomController::class, 'updateRoom'])->name('room.update');
-        Route::get('delete/{id}', [RoomController::class, 'deleteRoom'])->name('room.delete');
-    });
-    //Booking
-    Route::prefix('/booking')->group(function () {
-        Route::get('/', [BookingController::class, 'bookingIndex'])->name('booking.index');
-        Route::get('/add', [BookingController::class, 'showAddBooking'])->name('booking.show.add');
-        Route::post('/add', [BookingController::class, 'addBooking'])->name('booking.add');
-        Route::get('edit/{id}', [BookingController::class, 'showEditBooking'])->name('booking.edit');
-        Route::post('update/{id}', [BookingController::class, 'updateBooking'])->name('booking.update');
-        Route::get('delete/{id}', [BookingController::class, 'deleteBooking'])->name('booking.delete');
-    });
+    
+        Route::match(['get', 'post'], '/login', [LoginUserController::class, 'loginUser'])->name('login');
+        Route::post('/logout', [LoginUserController::class, 'logoutUser'])->name('logout.user');
+    
 });
 
 
-// //User
-// Route::prefix('/admin')->group(function(){
-//     Route::middleware(['auth:web'])->group(function(){
-//         Route::match(['get', 'post'], '/login', [LoginController::class, 'login'])->name('admin.login');
-//         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-//         Route::get('/user/index', [UserController::class, 'userIndex'])->name('admin.index');
-//         Route::get('/user/add', [UserController::class, 'showAddUser'])->name('get.admin.add');
-//         Route::post('/user/add', [UserController::class, 'addUser'])->name('post.admin.add');
-//         Route::get('edit-user/{id}', [UserController::class, 'showEditUser']);
-//         Route::put('update-user/{id}', [UserController::class, 'editUser']);
-//         Route::get('delete-user/{id}', [UserController::class, 'deleteUser']);
+
+//User
+Route::prefix('/admin')->group(function(){
+    Route::match(['get', 'post'], '/login', [LoginController::class, 'login'])->name('admin.login');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::middleware(['auth:admin', 'back'])->group(function(){
+        //Admin
+        Route::prefix('/admin')->group(function () {
+            Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+            // Route::get('/add', [UserController::class, 'showAddUser'])->name('user.show.add');
+            // Route::post('/add', [UserController::class, 'addUser'])->name('user.add');
+            // Route::get('edit/{id}', [UserController::class, 'showEditUser'])->name('user.edit');
+            // Route::post('update/{id}', [UserController::class, 'updateUser'])->name('user.update');
+            // Route::get('delete/{id}', [UserController::class, 'deleteUser'])->name('user.delete');
+        });
+        //User
+        Route::prefix('/user')->group(function () {
+            Route::get('/', [UserController::class, 'userIndex'])->name('user.index');
+            Route::get('/add', [UserController::class, 'showAddUser'])->name('user.show.add');
+            Route::post('/add', [UserController::class, 'addUser'])->name('user.add');
+            Route::get('edit/{id}', [UserController::class, 'showEditUser'])->name('user.edit');
+            Route::post('update/{id}', [UserController::class, 'updateUser'])->name('user.update');
+            Route::get('delete/{id}', [UserController::class, 'deleteUser'])->name('user.delete');
+        });
+        //Department
+        Route::prefix('/department')->group(function () {
+            Route::get('/', [DepartmentController::class, 'departmentIndex'])->name('department.index');
+            Route::get('/add', [DepartmentController::class, 'showAddDepartment'])->name('department.show.add');
+            Route::post('/add', [DepartmentController::class, 'addDepartment'])->name('department.add');
+            Route::get('edit/{id}', [DepartmentController::class, 'showEditDepartment'])->name('department.edit');
+            Route::post('update/{id}', [DepartmentController::class, 'updateDepartment'])->name('department.update');
+            Route::get('delete/{id}', [DepartmentController::class, 'deleteDepartment'])->name('department.delete');
+        });
+        //Position
+        Route::prefix('/position')->group(function () {
+            Route::get('/', [PositionController::class, 'positionIndex'])->name('position.index');
+            Route::get('/add', [PositionController::class, 'showAddPosition'])->name('position.show.add');
+            Route::post('/add', [PositionController::class, 'addPosition'])->name('position.add');
+            Route::get('edit/{id}', [PositionController::class, 'showEditPosition'])->name('position.edit');
+            Route::post('update/{id}', [PositionController::class, 'updatePosition'])->name('position.update');
+            Route::get('delete/{id}', [PositionController::class, 'deletePosition'])->name('position.delete');
+        });
+        //Room
+        Route::prefix('/room')->group(function () {
+            Route::get('/', [RoomController::class, 'roomIndex'])->name('room.index');
+            Route::get('/add', [RoomController::class, 'showAddRoom'])->name('room.show.add');
+            Route::post('/add', [RoomController::class, 'addRoom'])->name('room.add');
+            Route::get('edit/{id}', [RoomController::class, 'showEditRoom'])->name('room.edit');
+            Route::post('update/{id}', [RoomController::class, 'updateRoom'])->name('room.update');
+            Route::get('delete/{id}', [RoomController::class, 'deleteRoom'])->name('room.delete');
+        });
+        //Booking
+        Route::prefix('/booking')->group(function () {
+            Route::get('/', [BookingController::class, 'bookingIndex'])->name('booking.index');
+            Route::get('/add', [BookingController::class, 'showAddBooking'])->name('booking.show.add');
+            Route::post('/add', [BookingController::class, 'addBooking'])->name('booking.add');
+            Route::get('edit/{id}', [BookingController::class, 'showEditBooking'])->name('booking.edit');
+            Route::post('update/{id}', [BookingController::class, 'updateBooking'])->name('booking.update');
+            Route::get('delete/{id}', [BookingController::class, 'deleteBooking'])->name('booking.delete');
+        });
+    });
+});
+
+// // Route::match(['get', 'post'], '/login', [LoginUserController::class, 'loginUser'])->name('login');
+// Route::post('/logout', [LoginUserController::class, 'logoutUser'])->name('logout.user');
+// Route::prefix('/admin')->group(function () {
+//     //User
+//     Route::prefix('/user')->group(function () {
+//         Route::get('/', [UserController::class, 'userIndex'])->name('user.index');
+//         Route::get('/add', [UserController::class, 'showAddUser'])->name('user.show.add');
+//         Route::post('/add', [UserController::class, 'addUser'])->name('user.add');
+//         Route::get('edit/{id}', [UserController::class, 'showEditUser'])->name('user.edit');
+//         Route::post('update/{id}', [UserController::class, 'updateUser'])->name('user.update');
+//         Route::get('delete/{id}', [UserController::class, 'deleteUser'])->name('user.delete');
+//     });
+//     //Department
+//     Route::prefix('/department')->group(function () {
+//         Route::get('/', [DepartmentController::class, 'departmentIndex'])->name('department.index');
+//         Route::get('/add', [DepartmentController::class, 'showAddDepartment'])->name('department.show.add');
+//         Route::post('/add', [DepartmentController::class, 'addDepartment'])->name('department.add');
+//         Route::get('edit/{id}', [DepartmentController::class, 'showEditDepartment'])->name('department.edit');
+//         Route::post('update/{id}', [DepartmentController::class, 'updateDepartment'])->name('department.update');
+//         Route::get('delete/{id}', [DepartmentController::class, 'deleteDepartment'])->name('department.delete');
+//     });
+//     //Position
+//     Route::prefix('/position')->group(function () {
+//         Route::get('/', [PositionController::class, 'positionIndex'])->name('position.index');
+//         Route::get('/add', [PositionController::class, 'showAddPosition'])->name('position.show.add');
+//         Route::post('/add', [PositionController::class, 'addPosition'])->name('position.add');
+//         Route::get('edit/{id}', [PositionController::class, 'showEditPosition'])->name('position.edit');
+//         Route::post('update/{id}', [PositionController::class, 'updatePosition'])->name('position.update');
+//         Route::get('delete/{id}', [PositionController::class, 'deletePosition'])->name('position.delete');
+//     });
+//     //Room
+//     Route::prefix('/room')->group(function () {
+//         Route::get('/', [RoomController::class, 'roomIndex'])->name('room.index');
+//         Route::get('/add', [RoomController::class, 'showAddRoom'])->name('room.show.add');
+//         Route::post('/add', [RoomController::class, 'addRoom'])->name('room.add');
+//         Route::get('edit/{id}', [RoomController::class, 'showEditRoom'])->name('room.edit');
+//         Route::post('update/{id}', [RoomController::class, 'updateRoom'])->name('room.update');
+//         Route::get('delete/{id}', [RoomController::class, 'deleteRoom'])->name('room.delete');
+//     });
+//     //Booking
+//     Route::prefix('/booking')->group(function () {
+//         Route::get('/', [BookingController::class, 'bookingIndex'])->name('booking.index');
+//         Route::get('/add', [BookingController::class, 'showAddBooking'])->name('booking.show.add');
+//         Route::post('/add', [BookingController::class, 'addBooking'])->name('booking.add');
+//         Route::get('edit/{id}', [BookingController::class, 'showEditBooking'])->name('booking.edit');
+//         Route::post('update/{id}', [BookingController::class, 'updateBooking'])->name('booking.update');
+//         Route::get('delete/{id}', [BookingController::class, 'deleteBooking'])->name('booking.delete');
 //     });
 // });

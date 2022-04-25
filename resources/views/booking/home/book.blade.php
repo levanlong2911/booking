@@ -16,19 +16,21 @@
                             {{ Session::get('fail') }}
                         </div>
                     @endif
-                    <form action="{{ route('home.book', $room_list->id) }}" method="POST">
+                    <form action="{{ route('home.book', $room_list->id) }}" method="POST" autocomplete="off">
                         @csrf
                         
                         <!-- <h4 style="color:white;">Create booking</h4> -->
                         <div class="form-group">
                             <!-- <label for="title" style="color: white;">Title</label> -->
-                            <input class="form-control" type="text" name="title" placeholder="Rent a room to..." required>
+                            <input class="form-control" type="text" name="title" placeholder="Rent a room to...">
+                            <span class="text-danger">{{ $errors->first('title') }}</span>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="date" class="form-control" type="date" min="2022-04-12" required>
+                                    <input name="date" class="form-control" type="date" min="2022-04-12">
                                     <span class="form-label">date</span>
+                                    <span class="text-danger">{{ $errors->first('date') }}</span>
                                 </div>
                             </div>
                             <!-- <div class="col-md-6">
@@ -41,7 +43,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <select name="amount_of_people" class="form-control" required>
+                                    <select name="amount_of_people" class="form-control" >
                                         <option value="0" selected hidden>emtpy people</option>
                                         <option>4</option>
                                         <option>5</option>
@@ -50,14 +52,16 @@
                                         <option>8</option>
                                         <option>>8</option>
                                     </select>
-                                     <span class="select-arrow"></span>
+                                    <span class="select-arrow"></span>
                                     <span class="form-label">Amount of people</span>
+                                    <span class="text-danger">{{ $errors->first('amount_of_people') }}</span>
                                 </div>
+                                
                             </div>
                             <input type="hidden" name="room_list_id" value="{{ $room_list->id }}">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <select  name="time_start" class="form-control" required>
+                                    <select  name="time_start" class="form-control" >
                                         <option value="0" selected hidden>start</option>
                                         @foreach ($times as $time)
                                             <option value="{{ $time->time }}">{{ $time->time }}</option>
@@ -65,11 +69,13 @@
                                     </select>
                                     <span class="select-arrow"></span>
                                     <span class="form-label">Start</span>
+                                    <span class="text-danger">{{ $errors->first('time_start') }}</span>
                                 </div>
+                                
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <select name="time_end" class="form-control" required>
+                                    <select name="time_end" class="form-control" >
                                         <option value="0" selected hidden>End</option>
                                         @foreach ($times as $time)
                                             <option value="{{ $time->time }}">{{ $time->time }}</option>
@@ -77,7 +83,9 @@
                                     </select>
                                     <span class="select-arrow"></span>
                                     <span class="form-label">End</span>
+                                    <span class="text-danger">{{ $errors->first('time_end') }}</span>
                                 </div>
+                                
                             </div>
                         </div>
                         
