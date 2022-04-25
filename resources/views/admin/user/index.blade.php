@@ -1,16 +1,25 @@
 @extends('template.admin.master')
 @section('main-content')
-@if (Session::has('message'))
-<div class="alet alert-danger">
-    {{ Session::get('message') }}
-</div>
-@endif
     <div class="content-container">
+        @if (Session::has('message'))
+            <div class="alet alert-success" style="text-align: center">
+                {{ Session::get('message') }}
+            </div>
+        @endif
+        @if (Session::has('delete'))
+            <div class="alet alert-danger" style="text-align: center">
+                {{ Session::get('delete') }}
+            </div>
+        @endif
         <div class="row ml-5" id="mtr">
             <div>User List</div>
         </div>
         <br />
-        <a href="{{ route('user.show.add') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
+        <form action="" method="GET">
+            <a href="{{ route('user.show.add') }}"><button type="button" class="btn btn-secondary ml-5">Add New</button></a>
+            <input type="search" name="search" placeholder="Enter keyword" value="{{ $search }}">
+            <button type="submit">Search</button>
+        </form>
         <table class="table ml-5 mt-5">
             <thead>
                 <tr>
@@ -44,5 +53,6 @@
                 @endforeach
             </tbody>
         </table>
+        {!! $users->links() !!}
     </div>
 @endsection

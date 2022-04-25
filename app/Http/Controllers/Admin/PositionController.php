@@ -16,12 +16,16 @@ class PositionController extends Controller
     {
             $positions = new Position;
             $positions->fill($request->all())->save();
-            return redirect()->route('position.index');
+            return redirect()->route('position.index')->with('message', 'Thêm chức vụ thành công');
     }
     public function positionIndex()
     {
-        $positions = Position::all();
-        return view('admin.position.index', compact('positions'));
+        $search = $request['search'] ?? "";
+        if ($search != "") {
+            $positions = Position::where('name', 'LIKE', "%$search%");
+        }
+        $positions = Position::paginate(2);
+        return view('admin.position.index', compact('positions','search'));
     }
     public function showEditPosition($id)
     {
@@ -33,12 +37,12 @@ class PositionController extends Controller
         $positions = Position::find($id);
         $positions->name = $request->name;
         $positions->update();
-        return redirect()->route('position.index');
+        return redirect()->route('position.index')->with('message', 'Cập nhật chức vụ thành công');
     }
     public function deletePosition($id)
     {
         $positions = Position::find($id);
         $positions->delete();
-        return redirect()->route('position.index');
+        return redirect()->route('position.index')->with('delete', 'Xoá chức vụ thành công');
     }
 }
