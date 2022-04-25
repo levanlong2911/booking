@@ -56,7 +56,7 @@
                 <h5>{{ $room_list->name }}</h5>
               </a>
             </div>
-            <a href="{{ $url_book }}"><img src="/home/img/screenshot_1.png" alt="" style="width: 100%"></a>
+            <a href="{{ $url_book }}"><img src="/home/img/Screenshot_1.png" alt="" style="width: 100%"></a>
           </div>
           <div class="col-sm-4 gio">
             @foreach ($room_list->room as $room)
