@@ -46,9 +46,6 @@ Route::prefix('/')->group(function () {
     
 });
 
-
-
-
 //User
 Route::prefix('/admin')->group(function(){
     Route::match(['get', 'post'], '/login', [LoginController::class, 'login'])->name('admin.login');

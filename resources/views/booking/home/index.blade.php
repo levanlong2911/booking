@@ -26,19 +26,6 @@
           </div>
         </div>
       </form>
-      
-      {{-- <div class="col-sm-4 ">
-        <div class="col-sm-8 search">
-          <div class="form-group">
-            <label for="select"></label>
-            <select class="form-control" name="select" id="">
-              <option>8h</option>
-              <option>8h30</option>
-              <option>9h</option>
-            </select>
-          </div>
-        </div>
-      </div> --}}
       <div class="col-sm-2"></div>
   </div>
   @foreach ($room_lists as $room_list)
@@ -56,7 +43,7 @@
                 <h5>{{ $room_list->name }}</h5>
               </a>
             </div>
-            <a href="{{ $url_book }}"><img src="/home/img/screenshot_1.png" alt="" style="width: 100%"></a>
+            <a href="{{ $url_book }}"><img src="/home/img/Screenshot_1.png" alt="" style="width: 100%"></a>
           </div>
           <div class="col-sm-4 gio">
             @foreach ($room_list->room as $room)

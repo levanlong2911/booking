@@ -16,6 +16,7 @@ class HomeController extends Controller
     {
         $this->form = $form;
     }
+
     public function index(Request $request)
     {
         $room_lists = Room_list::all();
@@ -46,7 +47,7 @@ class HomeController extends Controller
                     return redirect()->back()->with('fail', __('message.error_booking'));
                 }
             } else {
-                return redirect()->back()->with('fail', __('message.error.book'));
+                return redirect()->back()->with('fail', __('message.error_book'));
             }
 
         }
