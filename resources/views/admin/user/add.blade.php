@@ -41,22 +41,20 @@
 
                 <label class="form-label" for="phoneNumber">Position</label>
                 <div>
-                    <select class="form-control selectpicker">
-                        <option>Giám đốc</option>
-                        <option>Trưởng phòng</option>
-                        <option>Nhân viên</option>
-                        <option>Thư ký</option>
+                    <select class="form-control selectpicker" name="position">
+                        @foreach ($positions as $position)
+                            <option value="{{ $position['name'] }}">{{ $position['name'] }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <br>
                 <br>
                 <label class="form-label" for="phoneNumber">Department</label>
                 <div>
-                    <select class="form-control selectpicker">
-                        <option>Kỹ thuật</option>
-                        <option>Nhân sự</option>
-                        <option>Kế toán</option>
-                        <option>Kinh doanh</option>
+                    <select class="form-control selectpicker" name="department">
+                        @foreach ($departments as $department)
+                            <option value="{{ $department['name'] }}">{{ $department['name'] }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <br>

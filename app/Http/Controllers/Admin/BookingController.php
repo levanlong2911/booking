@@ -47,7 +47,7 @@ class BookingController extends Controller
                 ->orWhere('date', 'LIKE', "$search")
                 ->get();
         } else {
-            $bookings = Room::paginate(2);
+            $bookings = Room::paginate(4);
         }
         return view('admin.booking.index',compact('bookings', 'search'));
     }

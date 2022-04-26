@@ -25,7 +25,7 @@ class RoomController extends Controller
         if ($search != "") {
             $rooms = Room_List::where('name', 'LIKE', "%$search%");
         }
-        $rooms = Room_List::paginate(2);
+        $rooms = Room_List::paginate(4);
         return view('admin.room.index', compact('rooms','search'));
     }
     public function showEditRoom($id)

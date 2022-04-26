@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Models\Department;
+use App\Models\Position;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -13,14 +15,17 @@ class UserController extends Controller
 {
     public function showAddUser()
     {
-        return view('admin.user.add');
+        $positions = Position::all();
+        $departments = Department::all();
+        return view('admin.user.add', compact('positions','departments'));
     }
     public function addUser(UserRequest $request)
     {
+
         $request->merge(['password' => Hash::make($request->input('password'))]);
         $user = new User;
         $user->fill($request->all())->save();
-        return redirect()->route('user.index')->with('message', 'Thêm người dùng thành công');
+        return redirect()->route('user.index',compact('departments'))->with('message', 'Thêm người dùng thành công');
     }
     public function userIndex(Request $request)
     {
@@ -33,7 +38,7 @@ class UserController extends Controller
                 ->orWhere('department', 'LIKE', "%$search%")
                 ->get();
         } else {
-            $users = User::paginate(2);
+            $users = User::paginate(4);
         }
         return view('admin.user.index',compact('users', 'search'));
     }
