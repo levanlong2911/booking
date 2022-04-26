@@ -24,7 +24,7 @@ class PositionController extends Controller
         if ($search != "") {
             $positions = Position::where('name', 'LIKE', "%$search%");
         }
-        $positions = Position::paginate(2);
+        $positions = Position::paginate(4);
         return view('admin.position.index', compact('positions','search'));
     }
     public function showEditPosition($id)

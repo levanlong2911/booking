@@ -25,7 +25,7 @@ class DepartmentController extends Controller
         if ($search != "") {
             $departments = Department::where('name', 'LIKE', "%$search%");
         }
-        $departments = Department::paginate(2);
+        $departments = Department::paginate(4);
         return view('admin.department.index', compact('departments','search'));
     }
     public function showEditDepartment($id)
