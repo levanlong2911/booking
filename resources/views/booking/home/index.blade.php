@@ -1,37 +1,44 @@
 @extends('template.home.master')
 
 @section('content')
-  <!-- Nav tabs -->
-  <ul class=" ml-5 nav nav-tabs" id="navId">
-    <li class="nav-item">
-      <a href="#" class="nav-link disabled">Book</a>
-    </li>
-    <li class="nav-item">
-      <a href="#" class="nav-link disabled">All rooms</a>
-    </li>
-    <li class="nav-item">
-      <a href="#" class="nav-link disabled">Bookings</a>
-    </li>
-  </ul>
-  <div class="row mt-5">
-      <div class="col-sm-2"></div>
-      <form action="" method="get">
-        <div class="col-sm-4 ">
-          <div class="col-sm-8">
-            <input type="submit" class="search" name="submit" value="Search">
+<div class="row ml-5" id="mtr">
+  <div >ROOM LIST</div>
+</div>
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      
+      <form action="" method="get" id="form">
+        <div class="row">
+          <div class="col-sm-2">
+            
+          </div>
+          <div class="col-sm-4">
+            <!-- select -->
             <div class="form-group">
-              <label for="date"></label>
-              <input type="date" name="date" id="day" class="form-control" placeholder="Mon,28 june 2022">
+              <label>Date</label>
+              <input type="date" name="date" id="date" class="form-control" value="{{ date('Y-m-d') }}">
             </div>
           </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Tìm kiếm</label>
+              <input type="submit" name="submit" id="search" class="form-control search" value="Search">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            
+          </div>
         </div>
+
       </form>
-      <div class="col-sm-2"></div>
+    </div>
   </div>
+  {{-- <div class="row mt-5"></div> --}}
   @foreach ($room_lists as $room_list)
     @php
       $slug = Str::slug($room_list->name);
-      $url_book = route('home.book', ['id' => $room_list->id]);
+      $url_book = route('home.book', ['id' => $room_list->id, 'date' => $date]);
     @endphp
     <div class="row ml-2 mt-3 room">
       <div class="col-sm-2"></div>
@@ -43,12 +50,12 @@
                 <h5>{{ $room_list->name }}</h5>
               </a>
             </div>
-            <a href="{{ $url_book }}"><img src="/home/img/Screenshot_1.png" alt="" style="width: 100%"></a>
+            <a href="{{ $url_book }}"><img src="/home/img/Screenshot_1.png" alt="" style="width: 70%"></a>
           </div>
-          <div class="col-sm-4 gio">
+          <div class="col-sm-4 gio" id="listTime">
             @foreach ($room_list->room as $room)
                 @if($room['date'] == $date)
-                  <div class="giocon">{{ $room->time_start}} - {{ $room->time_end }}</div>
+                  <div class="giocon">{{ Carbon\Carbon::parse($room->time_start)->format('H:i') }} - {{ Carbon\Carbon::parse($room->time_end)->format('H:i') }}</div>
                 @endif
             @endforeach
           </div>
@@ -58,3 +65,34 @@
     </div>
   @endforeach
 @endsection
+<script type="text/javascript">
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  $('#date').on('keyup', function(){
+    alert('hello');
+  })
+  // $(document).ready(function () {
+  //   $(document).on('keyup', '#date', function () {
+  //     // var date = $(this).val();
+  //     // var time_start = $(this).val();
+  //     // var time_end = $(this).val();
+  //     console.log('date');
+  //     $.ajax({
+  //       type: "get",
+  //       url: "/search",
+  //       data: {
+  //         date:date,
+  //         // time_start:time_start,
+  //         // time_end:time_end,
+  //       },
+  //       dataType: "json",
+  //       success: function (response) {
+  //         $('#listTime').html(response);
+  //       }
+  //     });
+  //   });
+  // });
+</script>

@@ -13,36 +13,14 @@
         </div>
       </div>
       <ul class="sidebar-navigation">
-        <li class="header"></i>FACILITIES</li>
         <li>
-          <a href="#">
-            <i class="fa fa-home" aria-hidden="true"></i> Meeting rooms
+          <a href="{{ route('home.index', ['date' => date('Y-m-d') ]) }}">
+            <i class="fa fa-home" aria-hidden="true"></i>Room list
           </a>
         </li>
         <li>
-          <a href="#">
-            <i class="fa fa-tachometer" aria-hidden="true"></i> Help guide
-          </a>
-        </li>
-        <li class="header">COMMUNITY</li>
-        <li>
-          <a href="#">
-            <i class="fa fa-users" aria-hidden="true"></i> Members
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-cog" aria-hidden="true"></i> Newsfeed
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-info-circle" aria-hidden="true"></i> Local area guide
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-info-circle" aria-hidden="true"></i> Benefits
+          <a href="{{ route('list.booking') }}">
+            <i class="fa fa-tachometer" aria-hidden="true"></i>List booking
           </a>
         </li>
       </ul>
@@ -50,7 +28,5 @@
 
     <div class="content-container">
 
-      <div class="row ml-5" id="mtr">
-        <div >Meeting rooms</div>
-      </div>
+      
 

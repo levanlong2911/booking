@@ -7,6 +7,8 @@ use App\Http\Form\AdminCustomValidator;
 use App\Models\Room;
 use App\Models\Room_list;
 use App\Models\Time;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,37 +22,70 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $room_lists = Room_list::all();
-        // dd($request->date);
         $date = $request->date;
-        $dem = count($room_lists);
-        // dd($dem);
-        return view('booking.home.index', compact('room_lists', 'date'));
+        $times = Time::all();
+        return view('booking.home.index', compact('room_lists', 'date', 'times'));
     }
 
     public function book($id, Request $request)
     {
+        
+        $date = $request->date;
         $room_list = Room_list::find($id);
         $times = Time::all();
+        $rooms = Room::where('room_list_id', $id)->where('date', $date)->get();
         if($request->isMethod('post'))
         {
             $this->form->validate($request, 'ValidateFormBooking');
-            $position = Auth::user()->position;
-            if($position == 'Trưởng phòng' || $position == 'Giám đốc' || $position == 'Thư ký')
-            {
-                $room = new Room;
-                $room->fill($request->all());
-                $room['user_id'] = Auth::user()->id;
-                if($room->save())
+            try {
+                $position = Auth::user()->position;
+                $checkBookings = Room::where('room_list_id', $id)->where('date', $date)->get();
+                $check = true;
+                if (count($checkBookings) >= 1)
                 {
-                    return redirect()->route('home.index');
-                } else {
-                    return redirect()->back()->with('fail', __('message.error_booking'));
+                    foreach ($checkBookings as $checkBooking) {
+                        $time_start = Carbon::parse($checkBooking->time_start)->format('H:i');
+                        // dd($request->all());
+                        $time_end = Carbon::parse($checkBooking->time_end)->format('H:i');
+                        if ((Carbon::parse($request->time_start)->gte(Carbon::parse($time_start)) && Carbon::parse($request->time_start)->gte(Carbon::parse($time_end))) || (Carbon::parse($request->time_end)->lte(Carbon::parse($time_start)) && Carbon::parse($request->time_end)->lte(Carbon::parse($time_end)))) {
+                            $check = true;
+                        } else {
+                            $check = false;
+                            break;
+                        }
+                    }
                 }
-            } else {
-                return redirect()->back()->with('fail', __('message.error_book'));
+                if ($check == true) {
+                    if($position == 'Trưởng phòng' || $position == 'Giám đốc' || $position == 'Thư ký') {
+                        $room = new Room;
+                        $room->fill($request->all());
+                        $room['user_id'] = Auth::user()->id;
+                        if($room->save())
+                        {
+                            return redirect()->route('home.index', ['date' => date('Y-m-d') ]);
+                        } else {
+                            return redirect()->back()->with('fail', __('message.error_booking'));
+                        }
+                    } else {
+                        return redirect()->back()->with('fail', __('message.error_book'));
+                    }
+                } else {                    
+                    return redirect()->back()->with('fail', __('message.error_time'))->withInput($request->all());
+                }
+                
+            } catch (\Throwable $th) {
+                //throw $th;
+                dd($th);
             }
-
+            
         }
-        return view('booking.home.book', compact('room_list', 'times'));
+        return view('booking.home.book', compact('room_list', 'times', 'rooms', 'date'));
+    }
+
+    public function listBooking()
+    {
+        $id = Auth::user()->id;
+        $rooms = Room::where('user_id', $id)->get();
+        return view('booking.home.list-booking', compact('rooms'));
     }
 }
