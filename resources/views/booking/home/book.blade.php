@@ -72,7 +72,7 @@
                             <div class="card-body col-md-5"  type="text-align:center">
                                 <div class="gio">
                                     @foreach ($rooms as $room)
-                                            <div class="giocon">{{ Carbon\Carbon::parse($room->time_start)->format('H:i') }} - {{ Carbon\Carbon::parse($room->time_end)->format('H:i') }}</div>
+                                            <div class="giocon">{{ Carbon\Carbon::parse($room->time_start)->format('H:i') }} - {{ Carbon\Carbon::parse($room->time_end)->format('H:i') }} - <i class="fas fa-user"></i> {{ $room->amount_of_people }}</div>
                                     @endforeach
                                 </div>
                             </div>

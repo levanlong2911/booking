@@ -39,7 +39,7 @@ Route::prefix('/')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home.index');
         Route::match(['get', 'post'], '/book/{id}', [HomeController::class, 'book'])->name('home.book');
         Route::get('/list-booking', [HomeController::class, 'listBooking'])->name('list.booking');
-        // Route::get('/search', HomeController::class, 'search')->name('home.search');
+        Route::get('/search-booking', HomeController::class, 'searchBooking')->name('room.search');
     });
         Route::match(['get', 'post'], '/login', [LoginUserController::class, 'loginUser'])->name('login');
         Route::post('/logout', [LoginUserController::class, 'logoutUser'])->name('logout.user');

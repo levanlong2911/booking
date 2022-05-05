@@ -82,10 +82,14 @@ class HomeController extends Controller
         return view('booking.home.book', compact('room_list', 'times', 'rooms', 'date'));
     }
 
-    public function listBooking()
-    {
+    public function listBooking(Request $request)
+    {  
         $id = Auth::user()->id;
-        $rooms = Room::where('user_id', $id)->get();
+        $rooms = Room::where('user_id', $id);
+        if ($request->date) {
+            $rooms = $rooms->where('date', Carbon::parse($request->date)->format('Y-m-d'));
+        }
+        $rooms = $rooms->orderBy('id', 'desc')->paginate(10);
         return view('booking.home.list-booking', compact('rooms'));
     }
 }

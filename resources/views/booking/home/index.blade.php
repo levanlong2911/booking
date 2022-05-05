@@ -44,18 +44,18 @@
       <div class="col-sm-2"></div>
       <div class="col-sm-8 mt-3">
         <div class="row">
-          <div class="col-sm-8">
+          <div class="col-sm-6">
             <div class="tr mb-2">
               <a href="{{ $url_book }}" style="text-decoration: none">
                 <h5>{{ $room_list->name }}</h5>
               </a>
             </div>
-            <a href="{{ $url_book }}"><img src="/home/img/Screenshot_1.png" alt="" style="width: 70%"></a>
+            <a href="{{ $url_book }}"><img src="/home/img/Screenshot_1.png" alt="" style="width: 100%"></a>
           </div>
           <div class="col-sm-4 gio" id="listTime">
             @foreach ($room_list->room as $room)
                 @if($room['date'] == $date)
-                  <div class="giocon">{{ Carbon\Carbon::parse($room->time_start)->format('H:i') }} - {{ Carbon\Carbon::parse($room->time_end)->format('H:i') }}</div>
+                  <div class="giocon">{{ Carbon\Carbon::parse($room->time_start)->format('H:i') }} - {{ Carbon\Carbon::parse($room->time_end)->format('H:i') }} - <i class="fas fa-user"></i> {{ $room->amount_of_people }}</div>
                 @endif
             @endforeach
           </div>
